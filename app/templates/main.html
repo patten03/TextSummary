@@ -3,7 +3,6 @@
 <html>
   <head>
     <style>
-      /* Center page */
       body,
       html {
         height: 100%;
@@ -31,7 +30,6 @@
         );
       }
 
-      /* Box container */
       .box {
         width: 90vw;
         max-width: 1400px;
@@ -39,7 +37,7 @@
       .bar {
           width: 100%;
           display: flex;
-          align-items: center;         /* vertical centering */
+          align-items: center;
           justify-content: space-between;
           padding: 10px;
           box-sizing: border-box;
@@ -51,7 +49,7 @@
           font-size: xx-large;
       }
       .history_button {
-          width: 10%;                  /* exactly 10% of bar width */
+          width: 10%;
           min-width: 100px;
       }
       .history_button button {
@@ -66,7 +64,7 @@
       .container {
         display: flex;
         gap: 20px;
-        height: 50vh;               /* you can change this or use min-height */
+        height: 50vh;
         margin-bottom: 20px;
       }
 
@@ -86,19 +84,19 @@
         padding: 12px;
         font-size: 14px;
         box-sizing: border-box;
-        resize: none;               /* optional: disable manual resize */
+        resize: none;
       }
 
       .left-column textarea:nth-child(1) {
-        flex: 1;              /* top gets 10% of the space */
+        flex: 1;
       }
 
       .left-column textarea:nth-child(2) {
-        flex: 9;              /* bottom gets the rest (90%) */
+        flex: 9;
       }
 
       .right-column textarea {
-        height: 100%;         /* takes full height of the container */
+        height: 100%;
       }
 
       .generate {
@@ -134,13 +132,11 @@
 
       <form name="form" method="post">
         <div class="container">
-          <!-- Left side: two textareas (equal height) -->
           <div class="left-column">
             <textarea name="instruction" placeholder="Инструкция (например, «Сделай краткую выжимку этого текста в 3 предложениях» или «Выдели 5 ключевых мыслей»)" required></textarea>
-            <textarea name="text" placeholder="Исходный текст" required></textarea>
+            <textarea name="original_text" placeholder="Исходный текст" required></textarea>
           </div>
 
-          <!-- Right side: one textarea that uses 100% height -->
           <div class="right-column">
             <textarea name="result" readonly placeholder="Результат"></textarea>
           </div>
@@ -152,7 +148,6 @@
   </body>
 
   <script>
-    // Обработка кнопки генерации
     const form = document.forms['form'];
     const resultTextarea = document.querySelector('textarea[name="result"]');
     const generate = form.querySelector('button[name="generate"]');
@@ -163,10 +158,10 @@
       const formData = new FormData(form);
       const payload = {
         instruction: formData.get('instruction')?.trim() || '',
-        text: formData.get('text')?.trim() || ''
+        original_text: formData.get('original_text')?.trim() || ''
       };
 
-      if (!payload.text) {
+      if (!payload.original_text) {
         resultTextarea.value = 'Ошибка: введите текст';
         return;
       }

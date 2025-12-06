@@ -9,8 +9,10 @@ services:
       - "8000:8000"
     volumes:
       - ./app:/code
+    env_file: ".env"
     depends_on:
       - ollama
+      - db
 
   ollama:
     image: ollama/ollama:latest
@@ -25,7 +27,18 @@ services:
             - driver: nvidia
               count: all
               capabilities: [gpu]
-  # database:
-  #   image: postgres:alpine
-  #   env_file:
-  #     - .env
+  
+  db:
+    image: postgres:alpine
+    restart: always
+    shm_size: 128mb
+    env_file: ".env"
+
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
