@@ -35,3 +35,5 @@ POSTGRES_DB=summaries
 ```
 docker compose up
 ```
+Откройте сервис по ссылке:
+http://0.0.0.0:8000
