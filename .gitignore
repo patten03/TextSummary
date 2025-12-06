@@ -215,6 +215,7 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
+# My own
 *.7z
 notes.txt
 .env

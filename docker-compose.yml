@@ -1,5 +1,5 @@
 services:
-
+  # Веб-приложение на FastAPI
   fastapi:
     build:
       context: .
@@ -14,6 +14,7 @@ services:
       - ollama
       - db
 
+  # Сервис с локальной LLM-моделью
   ollama:
     image: ollama/ollama:latest
     container_name: ollama
@@ -28,15 +29,16 @@ services:
               count: all
               capabilities: [gpu]
   
+  # PostgreSQL база данных для хранения истории суммирований
   db:
     image: postgres:alpine
     restart: always
     shm_size: 128mb
     env_file: ".env"
-
     volumes:
       - ./pgdata:/var/lib/postgresql/data
-    
+  
+  # Веб-интерфейс для управления и просмотра содержимого PostgreSQL
   adminer:
     image: adminer
     restart: always
