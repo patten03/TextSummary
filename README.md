@@ -4,7 +4,8 @@ TextSummary - это API-сервис на FastAPI для суммаризаци
 ## Зависимости
 - Docker version 29.0.0
 - NVIDIA Container Toolkit CLI version 1.18.0
-- Python не требуется, он 
+
+Python не требуется, он будет автоматически загружен в контейнер.
 
 ## Процесс сборки
 Для начала создайте папки в директории TextSummary для сервиса Ollama и базы данных PostgreSQL
