@@ -1,7 +1,6 @@
 import asyncpg                   # Асинхронный драйвер PostgreSQL
 from dotenv import load_dotenv   # Загрузка переменных окружения из .env
 import os
-from datetime import datetime
 import models                    # Pydantic-модели
 from typing import List
 

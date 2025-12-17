@@ -30,21 +30,27 @@ app = FastAPI(lifespan=lifespan)
 templates = Jinja2Templates(directory="templates")
 
 # Главная страница — передача index-шаблон
-@app.get("/", response_class=HTMLResponse)
+@app.get("/",
+         summary="Главная страница приложения",
+         response_class=HTMLResponse)
 async def root(request: Request):
     return templates.TemplateResponse(
         request=request, name="main.html"
     )
 
-# Страница с историей суммирований
-@app.get("/historyPage", response_class=HTMLResponse)
+# Страница с историей суммаризаций
+@app.get("/historyPage",
+        summary="Страница с историей суммаризаций",
+        response_class=HTMLResponse)
 async def historyPage(request: Request):
     return templates.TemplateResponse(
         request=request, name="history.html"
     )
 
-# Эндпоинт для выполнения суммирования текста
-@app.post("/summarize")
+# Эндпоинт для выполнения суммаризации текста
+@app.post("/summarize",
+          summary="Суммаризирует входной текст по входной инструкции",
+          )
 async def summarize(summarizeInput: models.SummarizeInput):
     # Получаем результат от локальной модели через ollama_llm
     result = await ollama_llm.summarize(app.state.http_session, summarizeInput)
@@ -63,7 +69,8 @@ async def summarize(summarizeInput: models.SummarizeInput):
 
 
 # Эндпоинт для получения всей истории суммирований (для фронтенда)
-@app.get("/history")
+@app.get("/history",
+         summary="Возвращает историю запросов пользователя")
 async def history():
     history = await database.get_history(app.state.pool)
     return history

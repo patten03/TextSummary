@@ -12,8 +12,3 @@ class Summaries(SummarizeInput):
 # Модель элемента истории с временной меткой
 class HistoryItem(Summaries):
     created_at: int     # Unix-timestamp момента создания записи
-
-# Полная модель записи в истории, которая хранится в базе данных
-class HistoryRecord(HistoryItem):
-    id: str             # Уникальный идентификатор записи (обычно UUID или автоинкремент)
-    
