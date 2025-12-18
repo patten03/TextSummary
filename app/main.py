@@ -17,11 +17,12 @@ async def lifespan(app: FastAPI):
     # Инициализируем пул соединений с PostgreSQL
     app.state.pool = await database.init_db()
 
-    yield
-
-    # После завершения работы приложения закрываем ресурсы
-    app.state.http_session.close()
-    database.close_db(app.state.pool)
+    try:
+        yield
+    finally:
+        # После завершения работы приложения закрываем ресурсы
+        await app.state.http_session.close()
+        await database.close_db(app.state.pool)
 
 # Создание экземпляр FastAPI с указанным lifespan
 app = FastAPI(lifespan=lifespan)
